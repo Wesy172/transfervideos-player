@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="https://firebasestorage.googleapis.com/v0/b/onegamers-create-game.appspot.com/o/favicon%2Fapple-touch-icon.png?alt=media&token=f5939b6f-cdeb-47fc-9555-66efd0755786">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://firebasestorage.googleapis.com/v0/b/onegamers-create-game.appspot.com/o/favicon%2Ffavicon-32x32.png?alt=media&token=04098093-e52e-413e-b104-bd81d3fef3dc">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://firebasestorage.googleapis.com/v0/b/onegamers-create-game.appspot.com/o/favicon%2Ffavicon-16x16.png?alt=media&token=5cfadf95-4c9c-4df6-b87f-b3fa2b3163e3">
+    <link rel="manifest" href="https://firebasestorage.googleapis.com/v0/b/onegamers-create-game.appspot.com/o/favicon%2Fsite.webmanifest?alt=media&token=dd3bd483-6698-4233-8f82-e622bdf54231">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://firebasestorage.googleapis.com/v0/b/onegamers-create-game.appspot.com/o/css%2Fplayer.css?alt=media&token=78f39f8f-11de-4f49-9614-022efa4f7f73">
+    <meta name="description" content="video.mp4">
+    <title>Transfer Video</title>
+  </head>
+  <body>
+    <main>
+      <video id="player" controls>ERROR 001: Navegador não compativel</video>
+      <h3 id="video_name">Não foi possivel Carregar Video</h3>
+    </main>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+      import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-storage.js";
+    
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDQPe12nEmITwXsQi5-nljioPMLya0QHXw",
+        authDomain: "onegamers-create-game.firebaseapp.com",
+        databaseURL: "https://onegamers-create-game-default-rtdb.firebaseio.com",
+        projectId: "onegamers-create-game",
+        storageBucket: "onegamers-create-game.appspot.com",
+        messagingSenderId: "428382959101",
+        appId: "1:428382959101:web:0370f579bf71b4d8dc1594"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      
+      // Initialize Firebase Storage
+      const storage = getStorage(app);
+      const player = document.getElementById("player")
+      let href = ref(storage, 'videos/' + location.hash.replace('#', ''))
+      getDownloadURL(href).then((url) => {
+        player.src = url
+      }).catch((error) => console.error("Erro ao obter URL do arquivo:", error));
+      const elVideoName = document.getElementById("video_name")
+      elVideoName.textContent = location.hash.replace('#', '')
+      const description = document.querySelector("meta[name='description']")
+      description.content = location.hash.replace('#', '')
+      console.log(description)
+  </script>
+  </body>
+</html>
